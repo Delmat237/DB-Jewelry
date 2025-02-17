@@ -1,0 +1,262 @@
+*{
+    margin:0;
+    padding: 0;
+    font-family: 'Roboto Condensed' , sans-serif;
+}
+
+body{
+    height: 100%;
+}
+.navbar{
+    padding: 20px 5%; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /*la barre sera toujours visible*/
+    top: 0%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.8);
+
+}
+
+.navbar .logo h1{
+    color:white;
+    cursor: pointer;
+}
+.navbar .menu li{
+    list-style: none;
+    display: inline-block;
+}
+
+.navbar .menu li a{
+    display: block;
+    margin-left: 20px;
+    color: white;
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.navbar .menu li .active{
+    border-bottom: 4px solid #f54748;
+
+}
+
+.navbar .menu li a:hover{
+    border-bottom: 4px solid #f54748;
+}
+
+.content{
+    background-image: url('images/VACCUM6.jpeg') ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #424144;
+    min-height: 100vh;
+    min-width: 90%;
+
+}
+
+.content h1{
+    font-size: 40px;
+
+}
+.content p{
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.content button{
+    margin-top: 30px;
+    padding: 15px 30px; 
+    border: none;
+    background:#f63e4e ;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.content button:hover{
+    background-color: #330a85;
+    transition: transform 0.3s ease-in-out;
+}
+.produits_texte{
+    text-align: left;
+    font-size: 30px;
+    font-weight: 300;
+    margin-top: 80px;
+    color: #424144;
+}
+
+main {
+    background: #d8d3e2;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Ajuste cet espace selon ton besoin */
+}
+
+main .montres{
+    background-image: url("images/PATEK.jpeg");
+}
+
+main .colliers{
+    background-image: url("images/CHAINE_O.jpeg");   
+}
+main .chaines{
+    background-image: url("images/CHAINE5.jpeg");
+}
+main .bracelets{
+    background-image: url("images/BRACELET6.jpeg");
+}
+
+.categorie {
+    flex: 1; /* Permet aux éléments de prendre toute la largeur disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.montres, .colliers, .chaines, .bracelets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: contain; /* Affiche l’image en entier */
+    background-repeat: no-repeat; /* Empêche la répétition si l'image est plus petite */
+    background-size: cover;
+    min-height: 30vh;
+    width: 100%; /* Chaque div prend toute la place disponible */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+/* Effet au survol */
+.montres:hover, .colliers:hover, .chaines:hover, .bracelets:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Style du texte sous l'image */
+.texte {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #c2b014e0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.section_produits{
+    padding : 40px 5%;
+}
+.produits{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.produits_texte{
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 80px;
+    color: #330a85;
+    text-align: center;
+    background:#7768156c;
+}
+
+.produits .carte{
+   
+    background:#f5f5f5;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.produits .carte img{
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.produits .carte img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.produits .carte .desc {
+    padding: 5px 20px;
+    opacity: 0.8
+}
+
+.produits .carte .titre{
+    font-weight: 900;
+    font-size: 20px;
+    color:#424144;
+    padding: 20px;
+}
+
+.produits .carte .box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.produits .carte .prix{
+    color:#f54748;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.produits .carte .achat{
+    font-size: 13px;
+    font-weight: 900;
+    color: #f54748;
+    padding: 10px 10px;
+    border-radius: 5px
+
+}
+
+.produits .carte .box .achat:hover{
+    cursor: pointer;
+     background: black;
+     color: white;
+}
+
+footer{
+    background:#f3f4f6;
+    height: 10vh;
+
+}
+
+footer p{
+    text-align: center;
+    line-height: 10vh;
+}
+
+footer p a {
+    text-decoration: none;
+    color:#f63e4e ;
+    font-weight: bold;
+}
+
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background: #f54748;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
