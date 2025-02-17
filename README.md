@@ -4,9 +4,11 @@ Bienvenue sur **DB Jewelry**, une boutique en ligne proposant une sélection de 
 
 ## 📌 Fonctionnalités
 - 📌 Interface responsive et moderne.
+  - <img src="../db_jewerly.png" alt="extrait">
 - 🛒 Affichage dynamique des produits.
 - 🎨 Effets de transition et d'animation pour une meilleure UX.
 - 🔍 Navigation simple et intuitive.
+  - <video src="../db_jewerly.webm"> </video>
 
 ## 🛠️ Installation
 
