@@ -48,7 +48,7 @@ body{
 }
 
 .content{
-    background-image: url('images/VACCUM6.jpeg') ;
+    background-image: url('./assert/images/VACCUM6.jpeg') ;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: right;
@@ -102,17 +102,17 @@ main {
 }
 
 main .montres{
-    background-image: url("images/PATEK.jpeg");
+    background-image: url("./assert/images/PATEK.jpeg");
 }
 
 main .colliers{
-    background-image: url("images/CHAINE_O.jpeg");   
+    background-image: url("./assert/images/CHAINE_O.jpeg");   
 }
 main .chaines{
-    background-image: url("images/CHAINE5.jpeg");
+    background-image: url("./assert/images/CHAINE5.jpeg");
 }
 main .bracelets{
-    background-image: url("images/BRACELET6.jpeg");
+    background-image: url("./assert/images/BRACELET6.jpeg");
 }
 
 .categorie {
