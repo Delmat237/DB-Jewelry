@@ -44,11 +44,21 @@ export default function Footer() {
         <div>
           <h3 className="text-yellow-400 font-semibold mb-2">Nous suivre</h3>
           <div className="flex gap-4 text-yellow-400 text-lg mb-4">
-            <Link href="#"><FaFacebookF /></Link>
-            <Link href="#"><FaInstagram /></Link>
-            <Link href="#"><FaTwitter /></Link>
-             <Link href="#"><FaWhatsapp /></Link>
-               <Link href="leonel-azangue"><FaLinkedin /></Link>
+            <Link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+            <FaFacebookF />
+          </Link>
+          <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+            <FaInstagram />
+          </Link>
+          <Link href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+            <FaTwitter />
+          </Link>
+          <Link href="https://wa.me/237657450314" target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp />
+          </Link>
+          <Link href="https://www.linkedin.com/in/leonel-azangue" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin />
+          </Link>
           </div>
           <h3 className="text-yellow-400 font-semibold mb-2">Paiement sécurisé</h3>
           <div className="flex gap-4 text-gray-300 text-2xl">
