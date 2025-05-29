@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 import { useCart } from '@/context/CartContext';
 import products from '@/data/productsData';
+import Image from 'next/image';
 // Simule une base de données locale
 
 
@@ -18,7 +19,7 @@ export default function ProductDetail() {
     <>
      
       <main className="p-6 md:flex gap-8 max-w-5xl mx-auto">
-        <img
+        <Image
           src={product.image}
           alt={product.name}
           className="w-full md:w-1/2 object-cover rounded-lg shadow"

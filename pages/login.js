@@ -59,7 +59,7 @@ export default function LoginPage() {
             </button>
           </form>
             <p>
-              Vous n’avez pas de compte ? <Link href="/register" className="text-black underline">Créer un compte</Link>
+              Vous n&apos;avez pas de compte ? <Link href="/register" className="text-black underline">Créer un compte</Link>
             </p>
         
         </div>

@@ -9,7 +9,7 @@ export default function Footer() {
         <div>
           <h2 className="text-2xl font-semibold text-yellow-400 mb-2">DB Jewelry</h2>
           <p className="text-sm text-gray-400">
-            Boutique de bijoux élégants et modernes, inspirés du luxe et de l'excellence.
+            Boutique de bijoux élégants et modernes, inspirés du luxe et de l&apos;excellence.
             Faites ressortir votre éclat avec DB Jewelry.
           </p>
         </div>

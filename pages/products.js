@@ -4,7 +4,7 @@ import products from '@/data/productsData';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/router';
 import { FiSearch } from 'react-icons/fi';
-
+import Image from 'next/image';
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
@@ -90,7 +90,7 @@ export default function ProductsPage() {
                     className="cursor-pointer overflow-hidden"
                     onClick={() => router.push(`/products/${product.id}`)}
                   >
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name}
                       className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
