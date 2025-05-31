@@ -14,7 +14,15 @@ export default function LoginPage() {
     setError('');
 
     // ⚠️ À remplacer plus tard par l’appel à votre API Django
-    if (email === 'admin@dbjeweli.com' && password === 'test1234') {
+    if (email === 'ald@dbjewelry.com' && password === 'password1') {
+
+      //Enregistrtement e,n loacl
+          localStorage.setItem('user', JSON.stringify({
+            email: email,
+            password: password,
+            role: "admin"
+          }));
+
       router.push('/'); // redirection après connexion réussie
     } else {
       setError('Adresse email ou mot de passe incorrect');
@@ -26,7 +34,7 @@ export default function LoginPage() {
 
       <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50">
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
+          <h1 className="text-2xl font-bold mb-6 text-center text-blue-700">Connexion</h1>
           <form onSubmit={handleLogin}>
             {error && (
               <p className="bg-red-100 text-red-600 px-4 py-2 rounded mb-4 text-sm">{error}</p>
@@ -36,7 +44,7 @@ export default function LoginPage() {
               <input
                 type="email"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
@@ -46,7 +54,7 @@ export default function LoginPage() {
               <input
                 type="password"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
               />
@@ -58,7 +66,7 @@ export default function LoginPage() {
               Se connecter
             </button>
           </form>
-            <p>
+            <p className='text-gray-700'>
               Vous n&apos;avez pas de compte ? <Link href="/register" className="text-black underline">Créer un compte</Link>
             </p>
         

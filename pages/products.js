@@ -1,5 +1,5 @@
 // pages/products.js
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import products from '@/data/productsData';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/router';
@@ -11,6 +11,23 @@ export default function ProductsPage() {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
+    const [user, setUser] = useState({ email: "", password: "", role: "" });
+
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        try {
+           const user  = localStorage.getItem('user');
+          if (user) {
+            setUser(JSON.parse(user));
+          }
+        } catch (error) {
+          console.error("Erreur lors du parsing du user :", error);
+          localStorage.removeItem('user');
+          setUser({ email: "", password: "", role: "" });
+        }
+      }
+    }, []);
+
 
   const categories = [...new Set(products.map((p) => p.category))];
 
@@ -93,6 +110,8 @@ export default function ProductsPage() {
                     <Image
                       src={product.image}
                       alt={product.name}
+                       width={300}
+                       height={200}
                       className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
@@ -106,7 +125,13 @@ export default function ProductsPage() {
                     </p>
                     <div className="mt-4">
                       <button
-                        onClick={() => addToCart(product)}
+                        onClick={() => {
+                          if (user && user.email !== "") {
+                            addToCart(product);
+                          } else {
+                            router.push(`/login`);
+                          }
+                        }}
                         className="w-full text-sm text-white bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600 transition"
                       >
                         Ajouter au panier

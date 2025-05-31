@@ -5,7 +5,19 @@ const nextConfig = {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   images: {
-    domains: ['localhost'], // autorise les images venant de Django
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000', // si ton backend Django tourne sur ce port
+        pathname: '/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mycdn.com',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

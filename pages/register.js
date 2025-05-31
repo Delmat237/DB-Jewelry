@@ -36,7 +36,7 @@ export default function RegisterPage() {
      
       <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50">
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-6 text-center">Créer un compte</h1>
+          <h1 className="text-blue-800 text-2xl font-bold mb-6 text-center">Créer un compte</h1>
           <form onSubmit={handleRegister}>
             {error && (
               <p className="bg-red-100 text-red-600 px-4 py-2 rounded mb-4 text-sm">{error}</p>
@@ -47,7 +47,7 @@ export default function RegisterPage() {
                 type="text"
                 name="name"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={form.name}
                 onChange={handleChange}
               />
@@ -58,7 +58,7 @@ export default function RegisterPage() {
                 type="email"
                 name="email"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={form.email}
                 onChange={handleChange}
               />
@@ -69,7 +69,7 @@ export default function RegisterPage() {
                 type="password"
                 name="password"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={form.password}
                 onChange={handleChange}
               />
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 type="password"
                 name="confirmPassword"
                 required
-                className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
                 value={form.confirmPassword}
                 onChange={handleChange}
               />

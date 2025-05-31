@@ -1,5 +1,6 @@
 import { FaFacebookF, FaInstagram, FaTwitter, FaCcVisa, FaCcMastercard, FaPaypal ,FaWhatsapp,FaLinkedin,FaEnvelope} from 'react-icons/fa';
 import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white pt-12 pb-8 px-4">
@@ -25,7 +26,8 @@ export default function Footer() {
               className="px-3 py-2 rounded bg-gray-800 text-sm text-white placeholder-gray-400 focus:outline-none"
             />
             <button className="bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-4 rounded text-sm font-semibold">
-              S’inscrire
+                    S’inscrire
+        
             </button>
           </form>
         </div>
