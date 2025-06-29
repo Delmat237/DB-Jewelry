@@ -3,32 +3,49 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    // ⚠️ À remplacer plus tard par l’appel à votre API Django
-    if (email === 'ald@dbjewelry.com' && password === 'password1') {
-
-      //Enregistrtement e,n loacl
-          localStorage.setItem('user', JSON.stringify({
-            email: email,
-            password: password,
-            role: "admin"
-          }));
-
-      router.push('/'); // redirection après connexion réussie
-    } else {
-      setError('Adresse email ou mot de passe incorrect');
-    }
+  const body = {
+    username: username,
+    password: password,
   };
 
+  // Send login request to the API
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    console.log("Response", response)
+    if (response.status === 200) {
+      const data = await response.json();
+          console.log(data.role);
+     localStorage.setItem('token', JSON.stringify({
+          access: data.access,
+          refresh: data.refresh,
+          user: data.user // Store user info
+        }));
+        router.push(data.user.role === 'admin' ? '/admin/products' : '/products');
+    } else {
+      const errorData = await response.json();
+      setError(errorData.detail || 'Username ou mot de passe incorrect');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    setError('Une erreur est survenue lors de la connexion');
+  }
+};
   return (
     <>
 
@@ -40,13 +57,13 @@ export default function LoginPage() {
               <p className="bg-red-100 text-red-600 px-4 py-2 rounded mb-4 text-sm">{error}</p>
             )}
             <div className="mb-4">
-              <label className="block mb-1 text-sm text-gray-700">Email</label>
+              <label className="block mb-1 text-sm text-gray-700">Username</label>
               <input
-                type="email"
+                type="name"
                 required
                 className="text-black w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={username}
+                onChange={e => setUsername(e.target.value)}
               />
             </div>
             <div className="mb-6">

@@ -1,15 +1,60 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function AdminProductsPage() {
-  const [products, setProducts] = useState([]);
+    const router = useRouter();
+  
+  const [products, setProducts] = useState([
+   {
+  id: null,
+  name: '' ,
+  description: '',
+  price: null,
+  stock: null,
+  image: '',
+  image_url: '',
+  created_at: '',
+  updated_at: ''
+}
+  ]);
 
+    // Check if user is admin
+const isAdmin = () => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return token && token.access && token.user?.role === 'admin';
+};
   useEffect(() => {
-    // Appel API à implémenter plus tard avec Django REST
+   
     async function fetchProducts() {
-      const res = {};//await fetch('/api/products'); // temporaire
-      const data = await res.json();
+      
+          const token = JSON.parse(localStorage.getItem('token'))?.access;
+        if (!token) {
+          setError('Vous devez être connecté en tant qu\'admin.');
+          router.push('/login');
+          return;
+        }
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      
+      });
+      console.log("Response", response)
+      if (response.status == 401){
+          router.push('/login');
+      }
+      const data = await response.json();
+            console.log(data)
       setProducts(data);
+    }
+
+        if (!isAdmin()) {
+      alert('Vous devez être connecté en tant qu’admin.');
+      setApiError('Vous devez être connecté en tant qu’admin.');
+      setTimeout(() => router.push('/login'), 2000);
+      return;
     }
     fetchProducts();
   }, []);

@@ -1,4 +1,3 @@
-// components/Navbar.js
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,29 +5,44 @@ import { FaBars, FaTimes, FaShoppingCart, FaUserShield, FaPlusCircle, FaGlobe, F
 import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState({ email: "", password: "", role: "" });
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const { cartCount } = useCart();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    // Only access localStorage on the client side
+    if (typeof window !== 'undefined') {
       try {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
+        const token = localStorage.getItem('token');
+        if (token) {
+          const parsedToken = JSON.parse(token);
+          setUser(parsedToken.user || null);
+          setIsLoggedIn(!!parsedToken.access && !!parsedToken.user);
+          setIsAdmin(parsedToken.user?.role === 'admin');
+        } else {
+          setUser(null);
+          setIsLoggedIn(false);
+          setIsAdmin(false);
         }
       } catch (error) {
-        console.error("Erreur lors du parsing du user :", error);
-        localStorage.removeItem('user');
-        setUser({ email: "", password: "", role: "" });
+        console.error('Erreur lors du parsing du token :', error);
+        localStorage.removeItem('token');
+        setUser(null);
+        setIsLoggedIn(false);
+        setIsAdmin(false);
       }
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    setUser({ email: "", password: "", role: "" });
+    localStorage.removeItem('token');
+    localStorage.removeItem('cart'); // Clear cart on logout
+    setUser(null);
+    setIsLoggedIn(false);
+    setIsAdmin(false);
     router.push('/');
     setMenuOpen(false);
   };
@@ -59,7 +73,8 @@ export default function Navbar() {
         {/* Menu (desktop) */}
         <div className="hidden md:flex items-center gap-6 text-sm">
           <NavLinks
-            user={user}
+            isLoggedIn={isLoggedIn}
+            isAdmin={isAdmin}
             cartCount={cartCount}
             handleLogout={handleLogout}
           />
@@ -70,7 +85,8 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden mt-4 flex flex-col gap-4 text-sm border-t pt-4">
           <NavLinks
-            user={user}
+            isLoggedIn={isLoggedIn}
+            isAdmin={isAdmin}
             cartCount={cartCount}
             handleLogout={handleLogout}
             onLinkClick={() => setMenuOpen(false)}
@@ -81,17 +97,17 @@ export default function Navbar() {
   );
 }
 
-function NavLinks({ user, cartCount, handleLogout, onLinkClick }) {
+function NavLinks({ isLoggedIn, isAdmin, cartCount, handleLogout, onLinkClick }) {
   return (
     <>
       <Link href="/products" onClick={onLinkClick} className="flex items-center gap-1 text-gray-700 hover:text-black">
         <FaStore className="text-blue-600" /> Boutique
       </Link>
       <Link href="/about" onClick={onLinkClick} className="flex items-center gap-1 text-gray-700 hover:text-black">
-        <FaInfoCircle className="text-red-600"/> À propos
+        <FaInfoCircle className="text-red-600" /> À propos
       </Link>
       <Link href="/contact" onClick={onLinkClick} className="flex items-center gap-1 text-gray-700 hover:text-black">
-        <FaEnvelope  className="text-green-600"/> Contact
+        <FaEnvelope className="text-green-600" /> Contact
       </Link>
       <Link href="/cart" onClick={onLinkClick} className="relative">
         <FaShoppingCart className="text-xl text-gray-700 hover:text-black" />
@@ -102,10 +118,10 @@ function NavLinks({ user, cartCount, handleLogout, onLinkClick }) {
         )}
       </Link>
 
-      {user.email ? (
+      {isLoggedIn ? (
         <>
           <Link href="/profile" onClick={onLinkClick} className="flex items-center gap-1 text-black font-medium hover:underline">
-            <FaUserCircle className="text-blue-600"/> Mon compte
+            <FaUserCircle className="text-blue-600" /> Mon compte
           </Link>
           <button
             onClick={handleLogout}
@@ -125,7 +141,7 @@ function NavLinks({ user, cartCount, handleLogout, onLinkClick }) {
         </>
       )}
 
-      {user.role === "admin" && (
+      {isAdmin && (
         <>
           <Link href="/admin/dashboard" onClick={onLinkClick} className="flex items-center gap-1 text-black font-medium hover:underline">
             <FaUserShield className="text-blue-600" /> Dashboard

@@ -1,8 +1,69 @@
 import { useEffect, useState } from 'react';
-import products from '@/data/productsData';
 
 export default function DynamicBanner() {
   const [currentImage, setCurrentImage] = useState(null);
+   const [products, setProducts] = useState([
+   {
+  id: null,
+  name: '' ,
+  description: '',
+  price: null,
+  stock: null,
+  image: '',
+  image_url: '',
+  created_at: '',
+  updated_at: ''
+} 
+  ]);
+  const [categories, setCategories] = useState([{
+    id:null,
+    name:'',
+    description:''
+  }]);
+  const [error, setError] = useState('');
+
+  // Fetch categories and products
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/`);
+        if (response.ok) {
+          const data = await response.json();
+         console.log("Categories",data)
+          setCategories(data);
+
+        } else {
+          setError('Erreur lors du chargement des catégories.');
+        }
+      } catch (error) {
+        console.error('Fetch categories error:', error);
+        setError('Une erreur réseau s\'est produite lors du chargement des catégories.');
+      }
+    };
+
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`);
+      
+        if (response.ok) {
+          
+          const data = await response.json();
+           console.log("Produit", data)
+          setProducts(data);
+         
+        } else {
+          setError('Erreur lors du chargement des produits.');
+        }
+      } catch (error) {
+        console.error('Fetch products error:', error);
+        setError('Une erreur réseau s\'est produite lors du chargement des produits.');
+      }
+    };
+
+    fetchCategories();
+    fetchProducts();
+  }, []);
+
 
   useEffect(() => {
     const getRandomProductImage = () => {

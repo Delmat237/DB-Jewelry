@@ -1,7 +1,6 @@
 // pages/products/[id].js
 import { useRouter } from 'next/router';
 import { useCart } from '@/context/CartContext';
-import products from '@/data/productsData';
 import Image from 'next/image';
 
 import { useEffect ,useState} from 'react';
@@ -14,6 +13,73 @@ export default function ProductDetail() {
   const { addToCart } = useCart(); // ✅ hook déplacé ici
 
  const [user, setUser] = useState({ email: "", password: "", role: "" });
+ const [products, setProducts] = useState([
+    {
+   id: null,
+   name: '' ,
+   description: '',
+   price: null,
+   stock: null,
+   image: '',
+   image_url: '',
+   created_at: '',
+   updated_at: ''
+ }
+   ]);
+   const [categories, setCategories] = useState([{
+     id:null,
+     name:'',
+     description:''
+   }]);
+   const [error, setError] = useState('');
+ 
+     // Check if user is admin
+const isAdmin = () => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return token && token.access && token.user?.role === 'admin';
+};
+
+   // Fetch categories and products
+   useEffect(() => {
+     const fetchCategories = async () => {
+       try {
+         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/`);
+         if (response.ok) {
+           const data = await response.json();
+          console.log("Categories",data)
+           setCategories(data);
+ 
+         } else {
+           setError('Erreur lors du chargement des catégories.');
+         }
+       } catch (error) {
+         console.error('Fetch categories error:', error);
+         setError('Une erreur réseau s\'est produite lors du chargement des catégories.');
+       }
+     };
+ 
+     const fetchProducts = async () => {
+       try {
+         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`);
+       
+         if (response.ok) {
+           
+           const data = await response.json();
+            console.log("Produit", data)
+           setProducts(data);
+          
+         } else {
+           setError('Erreur lors du chargement des produits.');
+         }
+       } catch (error) {
+         console.error('Fetch products error:', error);
+         setError('Une erreur réseau s\'est produite lors du chargement des produits.');
+       }
+     };
+ 
+     fetchCategories();
+     fetchProducts();
+   }, []);
   const product = products.find(p => p.id === parseInt(id));
     useEffect(() => {
       if (typeof window !== "undefined") {
@@ -58,7 +124,7 @@ export default function ProductDetail() {
           </button>
 
           {/* Route de l'admin */}
-        {user && user.role === "admin" && (
+        {isAdmin && (
           <>
          
             <button
