@@ -9,13 +9,18 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '8000', // si ton backend Django tourne sur ce port
+        port: '8000', 
         pathname: '/media/**',
       },
       {
         protocol: 'https',
         hostname: 'mycdn.com',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'db-jewelry.onrender.com',
+        pathname: '/media/**',
       },
     ],
   },
