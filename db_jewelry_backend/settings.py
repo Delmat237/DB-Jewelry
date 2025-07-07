@@ -153,8 +153,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+      # Fichiers médias
+DEFAULT_FILE_STORAGE = 'db_jewelry_backend.storage.SupabaseStorage'
+SUPABASE_URL = config('SUPABASE_URL', default='https://jrsjpfazntowtwtojqle.supabase.co')
+SUPABASE_KEY = config('SUPABASE_KEY')
+SUPABASE_BUCKET = config('SUPABASE_BUCKET', default='db-jewelry-media')
+MEDIA_URL = f"{SUPABASE_URL}/storage/v1/object/public/db-jewelry-media/"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
