@@ -10,6 +10,9 @@ from decouple import config
 from datetime import timedelta
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'emails',
     'dashboard',
     'authentication',
+    'cloudinary',
+    'cloudinary_storage',   # For Cloudinary storage
 ]
 
 MIDDLEWARE = [
@@ -152,14 +157,15 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files
-      # Fichiers médias
-DEFAULT_FILE_STORAGE = 'db_jewelry_backend.storage.SupabaseStorage'
-SUPABASE_URL = config('SUPABASE_URL', default='https://jrsjpfazntowtwtojqle.supabase.co')
-SUPABASE_KEY = config('SUPABASE_KEY')
-SUPABASE_BUCKET = config('SUPABASE_BUCKET', default='db-jewelry-media')
-MEDIA_URL = f"{SUPABASE_URL}/storage/v1/object/public/db-jewelry-media/"
-
+# Fichiers médias
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+     'USE_ORIGINAL_FILENAME': True,
+}
+MEDIA_URL = config('MEDIA_URL', default=f'https://res.cloudinary.com/{config("CLOUDINARY_CLOUD_NAME")}/image/upload/')
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -2,10 +2,13 @@ asgiref==3.8.1
 async-timeout==5.0.1
 certifi==2025.6.15
 charset-normalizer==3.4.2
+cloudinary==1.44.1
 dj-database-url==3.0.0
 Django==5.2.3
+django-cloudinary-storage==0.3.0
 django-cors-headers==4.7.0
 django-redis==6.0.0
+django-storages==1.14.6
 djangorestframework==3.16.0
 djangorestframework_simplejwt==5.5.0
 drf-yasg==1.21.10
@@ -21,7 +24,9 @@ pytz==2025.2
 PyYAML==6.0.2
 redis==6.2.0
 requests==2.32.4
+six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.14.0
 uritemplate==4.2.0
 urllib3==1.26.20
+whitenoise==6.9.0

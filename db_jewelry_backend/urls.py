@@ -53,4 +53,4 @@ urlpatterns = [
     path('api/dashboard/client/', ClientDashboardView.as_view(), name='client-dashboard'),
     path('api/dashboard/admin/', AdminDashboardView.as_view(), name='admin-dashboard'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
