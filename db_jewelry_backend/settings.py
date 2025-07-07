@@ -155,18 +155,18 @@ USE_TZ = True
 # Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.stoclearrage.CompressedManifestStaticFilesStorage'
 
 # Fichiers médias
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'db_jewelry_backend.storage.CustomCloudinaryStorage'
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': config('CLOUDINARY_API_KEY'),
     'API_SECRET': config('CLOUDINARY_API_SECRET'),
-     'USE_ORIGINAL_FILENAME': True,
+    'USE_ORIGINAL_FILENAME': True,
 }
 MEDIA_URL = config('MEDIA_URL', default=f'https://res.cloudinary.com/{config("CLOUDINARY_CLOUD_NAME")}/image/upload/')
-# Default primary key field type
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
