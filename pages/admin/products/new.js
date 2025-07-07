@@ -86,7 +86,7 @@ export default function AddProductPage() {
         return;
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}articles/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
