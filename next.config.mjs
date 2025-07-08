@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'db-jewelry.onrender.com',
         pathname: '/media/**',
       },
+      {
+          protocol: 'https',
+          hostname: 'res.cloudinary.com',
+          pathname: '/dpsgcq2lm/image/upload/**',
+        },
     ],
   },
 };

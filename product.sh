@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Admin access token (replace if expired)
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTIxODAwLCJpYXQiOjE3NTE5MTgyMDAsImp0aSI6ImRkMTEzZDM0ZTA4MjQyNDc5NDZkZmQ2N2YxNzdkNzRjIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYXphbmd1ZWxlb25lbDlAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IiIsImxhc3RfbmFtZSI6IiJ9.IqiCAh7ad6JyILq4x7p6RV07hBAiUlEm6g3Tvegcc9E"
-
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTYzMTI0LCJpYXQiOjE3NTE5NTk1MjQsImp0aSI6IjJiOThiNTA5ZTBlZTRmYjFiNTU3ZjdiOTc5YjIwZjkwIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYXphbmd1ZWxlb25lbDlAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IiIsImxhc3RfbmFtZSI6IiJ9.zYmKRpfNwwfPxBDk5vPSoenN4uooq1fpBkhfveLCCiM"
 # Base URL
 BASE_URL="https://db-jewelry.onrender.com/api/articles/"
 
@@ -18,7 +17,7 @@ declare -A CATEGORY_MAP=(
   ["bagues"]=2
 )
 
-# Products array with all 49 products
+# Products array with corrected categories
 PRODUCTS=(
   "Montre de luxe 1|30000|montres|PATEK.jpeg|Montre de luxe élégante en acier inoxydable"
   "Montre de luxe 2|13000|montres|Poedgar.jpeg|Montre de luxe classique avec cadran noir"
@@ -51,11 +50,11 @@ PRODUCTS=(
   "Collier en argent 5|2500|colliers|CROIX4.jpeg|Collier en argent avec croix élégante"
   "Collier en argent 6|2500|colliers|ETOILE.jpeg|Collier en argent avec pendentif étoile"
   "Collier en argent 7|7000|colliers|ETOILE1.jpeg|Collier en argent avec étoile scintillante"
-  "Chaîne en or 1|3500|colliers|CHAINE_O.jpeg|Chaîne en or robuste et élégante"
-  "Chaîne en or 2|3500|colliers|YF.jpeg|Chaîne en or avec design audacieux"
-  "Chaîne en or 3|3500|colliers|WH.jpeg|Chaîne en or avec finition brillante"
-  "Chaîne en or 4|3500|colliers|WH1.jpeg|Chaîne en or avec style moderne"
-  "Chaîne en or 5|3500|colliers|WH2.jpeg|Chaîne en or avec détails raffinés"
+  "Chaîne en or 1|3500|chaines|CHAINE_O.jpeg|Chaîne en or robuste et élégante"
+  "Chaîne en or 2|3500|chaines|YF.jpeg|Chaîne en or avec design audacieux"
+  "Chaîne en or 3|3500|chaines|WH.jpeg|Chaîne en or avec finition brillante"
+  "Chaîne en or 4|3500|chaines|WH1.jpeg|Chaîne en or avec style moderne"
+  "Chaîne en or 5|3500|chaines|WH2.jpeg|Chaîne en or avec détails raffinés"
   "Chaîne en or 6|3500|chaines|CHAINE1.jpeg|Chaîne en or pour un look classique"
   "Chaîne mixte 1|3500|chaines|CHAINE2.jpeg|Chaîne mixte en or et argent"
   "Chaîne en argent 1|3500|chaines|CHAINE3.jpeg|Chaîne en argent durable et élégante"
@@ -75,21 +74,25 @@ for product in "${PRODUCTS[@]}"; do
   IFS='|' read -r name price category image description <<< "$product"
   category_id=${CATEGORY_MAP[$category]}
   image_path="$IMAGE_DIR/$image"
+  image_name=$(basename "$image" .jpeg)  # Extract filename without extension
 
   echo "Registering: $name (Category ID: $category_id)"
   if [ -f "$image_path" ]; then
-    curl -X POST $BASE_URL \
+    curl -X POST "$BASE_URL" \
       -H "Authorization: Bearer $TOKEN" \
+      -H "Accept: application/json" \
       -F "name=$name" \
       -F "category_id=$category_id" \
       -F "description=$description" \
       -F "price=$price" \
       -F "stock=10" \
-      -F "image=@$image_path"
+      -F "image=@$image_path;filename=$image_name.jpg" \
+      -F "public_id=images/$image_name"
   else
     echo "Image not found: $image_path, skipping image upload"
-    curl -X POST $BASE_URL \
+    curl -X POST "$BASE_URL" \
       -H "Authorization: Bearer $TOKEN" \
+      -H "Accept: application/json" \
       -F "name=$name" \
       -F "category_id=$category_id" \
       -F "description=$description" \
