@@ -76,7 +76,7 @@ class ArticleSerializer(serializers.ModelSerializer):
                     resource_type='image',
                     format='jpg'
                 )
-                validated_data['image'] = f"{image_name}.jpg"
+                validated_data['image'] = urllib.parse.urlparse(upload_result['url']).path.split('/image/upload/')[1]
                 logger.debug(f"Uploaded image: {upload_result['url']}")
             except Exception as e:
                 logger.error(f"Failed to upload image to Cloudinary: {e}")
