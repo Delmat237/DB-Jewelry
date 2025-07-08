@@ -1,38 +1,41 @@
-# 💎 DB Jewelry - Boutique en ligne de bijoux de luxe
+# 💎 DB Jewelry - Boutique en Ligne de Bijoux de Luxe
 
 Bienvenue dans **DB Jewelry**, une application web moderne et élégante pour la vente de bijoux raffinés. Ce projet a été conçu pour offrir une expérience utilisateur fluide, intuitive et visuellement attrayante. Il intègre une navigation par catégories, un panier d’achat dynamique, des animations modernes et une interface responsive.
 
----
+## 📋 Table des Matières
+- [Captures d'Écran](#-captures-décran)
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies Utilisées](#-technologies-utilisées)
+- [Installation et Lancement du Projet](#-installation-et-lancement-du-projet)
+- [Structure du Projet](#-structure-du-projet)
+- [Auteur](#-auteur)
+- [Licence](#-licence)
+- [Contribuer](#-contribuer)
 
-## 📸 Captures d'écran
+## 📸 Captures d'Écran
 
+### 🏠 Page d'Accueil
+![Page d'Accueil](assets/acceuil.png)
 
-### 🏠 Page d'accueil
- ![alt text](assets/acceuil.png)
+### 🛍️ Catalogue de Produits
+![Catalogue de Produits](assets/shop.png)
 
-### 🛍️ Catalogue de produits
+![Catalogue de Produits](assets/shop1.png)
 
-![alt text](assets/shop.png)
+### 📦 Détail d'un Produit
+![Détail d'un Produit](assets/detail.png)
 
-![alt text](assets/shop1.png)
-### 📦 Détail d'un produit
-
-![alt text](assets/detail.png)
 ### 🛒 Panier
-
-![alt text](assets/cart.png)
+![Panier](assets/cart.png)
 
 ### Compte
+![Compte](assets/account.png)
 
-![alt text](assets/account.png)
-
-### A propos
-
-![alt text](assets/about.png)
+### À Propos
+![À Propos](assets/about.png)
 
 ### Contact
-![alt text](assets/contact.png)
----
+![Contact](assets/contact.png)
 
 ## 🚀 Fonctionnalités
 
@@ -46,21 +49,17 @@ Bienvenue dans **DB Jewelry**, une application web moderne et élégante pour la
 - [ ] Intégration du paiement (à venir)
 - [ ] Authentification utilisateur (à venir)
 
----
+## ⚙️ Technologies Utilisées
 
-## ⚙️ Technologies utilisées
+- **Next.js** 15+ - Framework React pour le rendu côté serveur
+- **React** 18+ - Bibliothèque JavaScript pour l'interface utilisateur
+- **Tailwind CSS** - Pour un design moderne et responsive
+- **Context API** - Gestion du panier
+- **JavaScript (ES6+)** - Programmation côté client
+- **CSS Modules / Tailwind** - Styles modulaires et utilitaires
+- **Flexbox / Grid** - Mise en page moderne
 
-- **Next.js** 15+
-- **React** 18+
-- **Tailwind CSS** pour le design moderne
-- **Context API** pour la gestion du panier
-- **JavaScript (ES6+)**
-- **CSS Modules / Tailwind**
-- **Flexbox / Grid**
-
----
-
-## 🛠️ Installation et lancement du projet
+## 🛠️ Installation et Lancement du Projet
 
 ```bash
 # 1. Cloner le dépôt
@@ -77,34 +76,36 @@ npm run dev
 http://localhost:3000
 ```
 
-## 📂 Structure du projet
+## 📂 Structure du Projet
 
-    .
-    ├── components/           # Composants réutilisables (HeroSection, ProductShowcase, etc.)
-    ├── context/              # Contexte React pour le panier
-    ├── data/                 # Données produits simulées
-    ├── pages/                # Pages principales (accueil, produits, etc.)
-    ├── public/images/        # Images utilisées (produits, bannières)
-    ├── styles/               # Fichiers CSS globaux
-    ├── README.md             # Ce fichier
+```
+.
+├── components/           # Composants réutilisables (HeroSection, ProductShowcase, etc.)
+├── context/              # Contexte React pour le panier
+├── data/                 # Données produits simulées
+├── pages/                # Pages principales (accueil, produits, etc.)
+├── public/images/        # Images utilisées (produits, bannières)
+├── styles/               # Fichiers CSS globaux
+├── README.md             # Ce fichier
+```
 
 ## 👤 Auteur
 
-🤵 Nom : Leonel Azangue
-
-📨 Email : azangueleonel9@gmail.com
-
-GitHub : @Delmat237
-
-LinkedIn : leonel-azangue
-
-WhatsApp : +237 657 450 314
+**Leonel Azangue**  
+- **Email** : [azangueleonel9@gmail.com](mailto:azangueleonel9@gmail.com)  
+- **GitHub** : [@Delmat237](https://github.com/Delmat237)  
+- **LinkedIn** : [leonel-azangue](https://www.linkedin.com/in/leonel-azangue)  
+- **WhatsApp** : [+237 657 450 314](tel:+237657450314)
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT — voir le fichier LICENSE pour plus de détails.
+Ce projet est sous licence MIT — voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ## 🤝 Contribuer
 
-Les contributions sont les bienvenues !
+Les contributions sont les bienvenues !  
 N'hésitez pas à forker le dépôt, créer une branche, proposer une fonctionnalité ou corriger un bug via une Pull Request.
+
+---
+
+🌟 **Ajoutez une étoile à ce dépôt si vous aimez le projet !**
