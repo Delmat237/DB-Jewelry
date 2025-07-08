@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import Article, Category
 import cloudinary.uploader
 from django.conf import settings
+import logging
+import os
+import urllib.parse
+
+logger = logging.getLogger(__name__)
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,8 +20,8 @@ class ArticleSerializer(serializers.ModelSerializer):
     category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(), source='category'
     )
-    image = serializers.ImageField(required=False, allow_null=True)  # Handle image uploads
-    image_url = serializers.SerializerMethodField()  # Add image URL field
+    image = serializers.ImageField(required=False, allow_null=True)
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
@@ -36,22 +41,22 @@ class ArticleSerializer(serializers.ModelSerializer):
         """
         image = validated_data.pop('image', None)
         if image:
-            # Générer un public_id basé sur le nom du fichier (sans extension)
-            image_name = os.path.splitext(image.name)[0]
-            public_id = f"images/{image_name}"
             try:
-                # Uploader l'image vers Cloudinary
+                image_name = os.path.splitext(image.name)[0]
+                logger.debug(f"Uploading image to Cloudinary with public_id: {image_name}")
                 upload_result = cloudinary.uploader.upload(
-                    image,
-                    public_id=public_id,
+                    image.file,
+                    public_id=image_name,
                     folder='images',
                     overwrite=True,
                     resource_type='image',
                     format='jpg'
                 )
-                validated_data['image'] = f"{public_id}.jpg"
+                validated_data['image'] = urllib.parse.urlparse(upload_result['url']).path.split('/image/upload/')[1]
+                logger.debug(f"Uploaded image: {upload_result['url']}")
             except Exception as e:
-                raise serializers.ValidationError(f"Échec de l'upload de l'image: {e}")
+                logger.error(f"Failed to upload image to Cloudinary: {e}")
+                raise serializers.ValidationError(f"Échec de l'upload de l'image: {str(e)}")
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
@@ -60,20 +65,20 @@ class ArticleSerializer(serializers.ModelSerializer):
         """
         image = validated_data.pop('image', None)
         if image:
-            # Générer un public_id basé sur le nom du fichier
-            image_name = os.path.splitext(image.name)[0]
-            public_id = f"images/{image_name}"
             try:
-                # Uploader l'image vers Cloudinary
+                image_name = os.path.splitext(image.name)[0]
+                logger.debug(f"Uploading image to Cloudinary with public_id: {image_name}")
                 upload_result = cloudinary.uploader.upload(
-                    image,
-                    public_id=public_id,
+                    image.file,
+                    public_id=image_name,
                     folder='images',
                     overwrite=True,
                     resource_type='image',
                     format='jpg'
                 )
-                validated_data['image'] = f"{public_id}.jpg"
+                validated_data['image'] = f"{image_name}.jpg"
+                logger.debug(f"Uploaded image: {upload_result['url']}")
             except Exception as e:
-                raise serializers.ValidationError(f"Échec de l'upload de l'image: {e}")
+                logger.error(f"Failed to upload image to Cloudinary: {e}")
+                raise serializers.ValidationError(f"Échec de l'upload de l'image: {str(e)}")
         return super().update(instance, validated_data)
